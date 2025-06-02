@@ -3,7 +3,7 @@
 #include <limits.h>
 
 #define SUCCESS 0
-#define FAIL 1
+#define IMPOSSIBLE 1
 
 
 // Funkcia zmeni kodomenu relacie tak, aby bola nova mnozina Zsize_cod.
@@ -32,7 +32,7 @@ char nurelm_set_codomain(NURELM *to_redef, unsigned int size_cod){
 	old_n = to_redef->n;
 	new_n = size_cod;
 	
-
+    //окремий випадок
 	if(m==0){
 		
 		if(to_redef->matrix != NULL){
@@ -46,9 +46,15 @@ char nurelm_set_codomain(NURELM *to_redef, unsigned int size_cod){
 		}
 		
 		to_redef->matrix = NULL;
-		to_redef->n = 0;
+		to_redef->n = new_n;
 		return SUCCESS;
 	}
+	
+	//перевірка переповнення
+	total_cells = (unsigned long long)m * (unsigned long long)new_n;
+	
+	if(new_n != 0 && (total_cells/new_n) != m)
+	return IMPOSSIBLE;
 	
 };
 
