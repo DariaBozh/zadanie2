@@ -7,7 +7,7 @@
 
 
 // Funkcia zmeni kodomenu relacie tak, aby bola nova mnozina Zsize_cod.
-// Ak sa to neda, vrati FAIL, inac SUCCESS.
+// Ak sa to neda, vrati IMPOSSIBLE, inac SUCCESS.
  
 
 typedef struct{
@@ -55,6 +55,35 @@ char nurelm_set_codomain(NURELM *to_redef, unsigned int size_cod){
 	
 	if(new_n != 0 && (total_cells/new_n) != m)
 	return IMPOSSIBLE;
+	
+	//виділення місця
+	bytes_needed = (size_t)(total_cells*sizeof(char));
+	
+	new_matrix = (char*) malloc(bytes_needed);
+	
+	if(bytes_needed != 0 && new_matrix == NULL)
+	return IMPOSSIBLE;
+	
+	//ініциалізація (візсутність нових звязків)
+	for(i = 0; i < m; ++i){
+		for(j = 0; j < new_n; ++j){
+			new_matrix[i * new_n + j] = 0;
+		}
+	}
+	
+	//копіювання даних в нову матрицю
+	if(to_redef->matrix != NULL){
+		unsigned int limit = (old_n < new_n ? old_n : new_n);
+		for(i = 0; i < m; ++i){
+			for(j = 0; j < limit; ++j)
+			new_matrix[i * new_n + j] = to_redef->matrix[i * old_n + j];
+		}
+		free(to_redef->matrix);
+	}
+	
+	//закріплення нових значень
+	to_redef->n = new_n;
+	to_redef->matrix = new_matrix;
 	
 };
 
