@@ -32,6 +32,24 @@ char nurelm_set_codomain(NURELM *to_redef, unsigned int size_cod){
 	old_n = to_redef->n;
 	new_n = size_cod;
 	
+
+	if(m==0){
+		
+		if(to_redef->matrix != NULL){
+			free(to_redef->matrix);
+		}
+		
+		if(new_n==0){
+			to_redef->matrix = NULL;
+			to_redef->n = 0;
+			return SUCCESS;
+		}
+		
+		to_redef->matrix = NULL;
+		to_redef->n = 0;
+		return SUCCESS;
+	}
+	
 };
 
 int main(){
