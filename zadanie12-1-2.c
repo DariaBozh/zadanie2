@@ -123,9 +123,18 @@ int main(){
 	
 	printf("Initial matrix\n");
     print_matrix(&relation);
+    
+    //тестування
+    if (nurelm_set_codomain(&relation, 1) == SUCCESS){
+    	printf("\nMatrix after reducing codomain to size 1\n");
+    	print_matrix(&relation);
+	} else {
+		printf("\nFailed to reduce codomain to 1\n");
+	}
 	
+	free(relation.matrix);
 	
-	return 0;
+	return SUCCESS;
 }
 
 
