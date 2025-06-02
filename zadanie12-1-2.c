@@ -100,6 +100,39 @@ void print_matrix (NURELM *rel){
 }
 
 int main(){
+	NURELM relation;
+	unsigned int i,j;
+	
+	relation.m = 3;
+	relation.n = 2;
+	
+	relation.matrix = (char*) malloc(relation.m * relation.n * sizeof(char));
+	if (relation.matrix == NULL) {
+        fprintf(stderr, "Error: out of memory\n");
+        return IMPOSSIBLE;
+    }
+    
+    for(i = 0; i < relation.m; ++i){
+    	for(j = 0; j < relation.n; ++j){
+    		relation.matrix[i * relation.n + j] = 0;
+		}
+	}
+	
+	relation.matrix[0 * relation.n + 1] = 1; //(0,1)
+	relation.matrix[2 * relation.n + 0] = 1; //(2,0)
+	
+	printf("Initial matrix\n");
+    print_matrix(&relation);
+	
 	
 	return 0;
 }
+
+
+
+
+
+
+
+
+
