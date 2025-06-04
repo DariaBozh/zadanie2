@@ -38,12 +38,6 @@ char nurelm_set_codomain(NURELM *to_redef, unsigned int size_cod){
 			free(to_redef->matrix);
 		}
 		
-		if(new_n == 0){
-			to_redef->matrix = NULL;
-			to_redef->n = 0;
-			return SUCCESS;
-		}
-		
 		to_redef->matrix = NULL;
 		to_redef->n = new_n;
 		return SUCCESS;
@@ -109,7 +103,7 @@ int main(){
 	relation.matrix = (char*) malloc(relation.m * relation.n * sizeof(char));
 	if (relation.matrix == NULL) {
         fprintf(stderr, "Error: out of memory\n");
-        return IMPOSSIBLE;
+        return EXIT_FAILURE;
     }
     
     for(i = 0; i < relation.m; ++i){
